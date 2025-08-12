@@ -33,6 +33,22 @@
         <!-- Cards -->
         <div class="">
             <x-table>
+                 <x-slot name="buttonAdd">
+                    <button type="submit"
+                        class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">
+                        <img src="/images/icons/refresh.png" alt="Refresh Icon" class="inline-block h-4"
+                            style="max-width: unset;">
+                        &nbsp; Sync Today
+                    </button>
+                </x-slot>
+
+                <x-slot name="filter">
+                    <button
+                        class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                        <span>Download</span>
+                    </button>
+                </x-slot>
+                
                 <x-slot name="thead">
                     <tr>
                         <th class="px-4 py-3">Product</th>
