@@ -1,0 +1,88 @@
+<div class="relative p-4 w-full max-w-2xl max-h-full flex flex-col justify-center h-screen content-center m-auto ">
+    <!-- Modal content -->
+    <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700 m-auto w-full">
+        <!-- Modal header -->
+        <div
+            class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                Edit Vendors
+            </h3>
+        </div>
+
+        <!-- Modal body -->
+        <div class="p-4 md:p-5 space-y-4 w-full">
+            <form id="formEditVendor" action="{{ route('vendors.update', $vendors->id) }}" method="POST" class="space-y-4">
+                @csrf
+                @method('PUT') <!-- method override untuk update -->
+
+                <!-- Nama -->
+                <div class="mb-4">
+                    <label for="name" class="block text-sm font-medium text-gray-700">Nama <span
+                            class="text-red-500">*</span></label>
+                    <input type="text" id="name" name="name" value="{{ $vendors->name }}"
+                        class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500">
+                    <span class="text-red-500 text-sm error-text" id="error-name"></span>
+                </div>
+
+                <!-- Email -->
+                <div class="mb-4">
+                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                    <input type="email" id="email" name="email" value="{{ $vendors->email }}"
+                        class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500">
+                    <span class="text-red-500 text-sm error-text" id="error-email"></span>
+                </div>
+
+                <!-- Phone -->
+                <div class="mb-4">
+                    <label for="phone" class="block text-sm font-medium text-gray-700">No. Telepon</label>
+                    <input type="text" id="phone" name="phone" value="{{ $vendors->phone }}"
+                        class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500">
+                    <span class="text-red-500 text-sm error-text" id="error-phone"></span>
+                </div>
+
+                <!-- Address -->
+                <div class="mb-4">
+                    <label for="address" class="block text-sm font-medium text-gray-700">Alamat</label>
+                    <textarea id="address" name="address" rows="3"
+                        class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500">{{ $vendors->address }}</textarea>
+                    <span class="text-red-500 text-sm error-text" id="error-address"></span>
+                </div>
+
+                <!-- Footer -->
+                <div class="flex items-center border-t border-gray-200 rounded-b dark:border-gray-600">
+                    <button type="submit"
+                        class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">Submit</button>
+                    <a href="{{ route('vendors') }}"
+                        class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Back</a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('formEditVendor').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const form = e.target;
+            const url = form.action;
+            const formData = new FormData(form);
+            formData.append('_method', 'PUT');
+
+            fetch(url, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Vendor updated successfully!');
+                    } else {
+                        console.error(data);
+                    }
+                })
+                .catch(err => console.error('Error:', err));
+        });
+
+        
+    </script>

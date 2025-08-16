@@ -2,7 +2,8 @@
     <!-- Modal content -->
     <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700 m-auto w-full">
         <!-- Modal header -->
-        <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
+        <div
+            class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
             <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
                 Create Role
             </h3>
@@ -10,37 +11,82 @@
 
         <!-- Modal body -->
         <div class="p-4 md:p-5 space-y-4 w-full">
-           <form>
+            <form id="formAddRole" action="{{ route('roles.store') }}" method="POST" class="space-y-4">
                 <div class="mb-4">
                     <label for="name" class="block text-sm font-medium text-gray-700">Nama</label>
-                    <input type="text" id="name" name="name" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500" placeholder="Masukkan nama">
+                    <input type="text" id="name" name="name" required
+                        class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
+                        placeholder="Masukkan nama">
                 </div>
                 <div class="mb-4">
                     <label for="email" class="block text-sm font-medium text-gray-700">Permission</label>
-                    <select id="countries" class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option selected>Choose a permission</option>
-                    <option value="US">United States</option>
-                    <option value="CA">Canada</option>
-                    <option value="FR">France</option>
-                    <option value="DE">Germany</option>
-                </select>
+                    <select multiple id="permission" name="permissions[]"
+                        class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option selected>Choose a permission</option>
+                        @foreach ($permissions as $permission)
+                            <option value="{{ $permission->id }}">{{ $permission->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
 
-            </div>
-              
-            </div>
+        </div>
 
-            <!-- Modal footer -->
-            <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-                <button data-modal-hide="default-modal" type="button" class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">Submit</button>
-                <button data-modal-hide="default-modal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" id="reloadButton">Back</button>
-            </div>
-         </form>
+        <!-- Modal footer -->
+        <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+            <button type="submit"
+                class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">Submit</button>
+            <a href="{{ route('roles') }}"
+                class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none 
+                        bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 
+                        focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 
+                        dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 
+                        dark:hover:text-white dark:hover:bg-gray-700">
+                Back
+            </a>
+
+        </div>
+        </form>
     </div>
 </div>
 
 <script>
-    let reloadButton = document.getElementById('reloadButton');
-    reloadButton.addEventListener('click', function() {
-        window.location.reload();
-    })
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('formAddRole');
+        const permission = document.getElementById('permission');
+
+        permission.addEventListener('change', function() {
+            // Validasi jika tidak ada permission yang dipilih
+            if (permission.value === 'Choose a permission') {
+                alert('Please select a valid permission.');
+                return false;
+            }
+        });
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // mencegah submit default
+
+            // ambil data dari form
+            const formData = new FormData(form);
+            formData.append('permission', permission.value);
+
+            // kirim data ke server
+            fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Role berhasil dibuat!');
+                        window.location.href = '{{ route('roles') }}'; // redirect ke halaman roles
+                    } else {
+                        alert('Terjadi kesalahan: ' + data.message);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    });
 </script>

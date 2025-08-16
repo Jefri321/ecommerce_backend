@@ -13,15 +13,15 @@
 
         <div>
             <!-- Main modal -->
-            <div id="modal-add-sub"
+            <div id="modal-add-category"
                 class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0m   ax-h-full inset-0 bg-black/20 h-screen">
-                @include('pages.menu.sub-category.component.add')
+                @include('pages.menu.sub-category.component.add', ['vendors' => $vendors])
             </div>
 
             <!-- Edit Sub Category modal -->
-            <div id="modal-edit-sub"
-                class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0  max-h-full inset-0 bg-black/20 h-screen">
-                @include('pages.menu.sub-category.component.edit')
+
+            <div id="modal-edit-category" class="hidden fixed inset-0 z-50 flex justify-center items-center bg-black/50">
+                <div id="modal-edit-content" class="w-full max-w-2xl"></div>
             </div>
 
         </div>
@@ -55,21 +55,6 @@
 
                 {{-- Button Filter --}}
                 <x-slot name="filter">
-                    <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown"
-                        class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-primary-700 focus:outline-none focus:z-10 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700"
-                        type="button">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-gray-400" viewBox="0 0 20 20"
-                            fill="currentColor">
-                            <path fill-rule="evenodd"
-                                d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
-                                clip-rule="evenodd" />
-                        </svg>
-                        Filter
-                        <svg class="-mr-1 ml-1.5 w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                            <path clip-rule="evenodd" fill-rule="evenodd"
-                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                        </svg>
-                    </button>
                     <div id="filterDropdown" class="z-10 hidden w-56 p-3 bg-white rounded-lg shadow dark:bg-gray-700">
                         <h6 class="mb-3 text-sm font-medium text-gray-900">Training Category</h6>
                         <ul class="space-y-2 text-sm">
@@ -109,72 +94,134 @@
                                 </label>
                             </li>
                         </ul>
-
                     </div>
                 </x-slot>
 
                 {{-- Table Body --}}
-                <tr class="border-b dark:border-gray-700">
-                    <td class="px-4 py-3">1</td>
-                    <td class="px-4 py-3">PT Mitra Karya</td>
-                    <td class="px-4 py-3">ISO Management</td>
-                    <td class="px-4 py-3 text-end">
-                        <a href="#" class="text-blue-600 hover:underline" onclick="editCategory(1)">Edit</a>
-                    </td>
-                </tr>
-                <tr class="border-b dark:border-gray-700">
-                    <td class="px-4 py-3">2</td>
-                    <td class="px-4 py-3">PT Safety First</td>
-                    <td class="px-4 py-3">Safety Training</td>
-                    <td class="px-4 py-3 text-end">
-                        <a href="#" class="text-blue-600 hover:underline" onclick="editCategory(2)">Edit</a>
-                    </td>
-                </tr>
-                <tr class="border-b dark:border-gray-700">
-                    <td class="px-4 py-3">3</td>
-                    <td class="px-4 py-3">PT Green Earth</td>
-                    <td class="px-4 py-3">Environmental Awareness</td>
-                    <td class="px-4 py-3 text-end">
-                        <a href="#" class="text-blue-600 hover:underline" onclick="editCategory(3)">Edit</a>
-                    </td>
-                </tr>
-                <tr class="border-b dark:border-gray-700">
-                    <td class="px-4 py-3">4</td>
-                    <td class="px-4 py-3">PT Human Capital</td>
-                    <td class="px-4 py-3">HR & Leadership</td>
-                    <td class="px-4 py-3 text-end">
-                        <a href="#" class="text-blue-600 hover:underline" onclick="editCategory(4)">Edit</a>
-                    </td>
-                </tr>
-                <tr class="border-b dark:border-gray-700">
-                    <td class="px-4 py-3">5</td>
-                    <td class="px-4 py-3">PT Audit Pro</td>
-                    <td class="px-4 py-3">Quality Assurance</td>
-                    <td class="px-4 py-3 text-end">
-                        <a href="#" class="text-blue-600 hover:underline" onclick="editCategory(5)">Edit</a>
-                    </td>
-                </tr>
-
-
+                @foreach ($categories as $i => $category)
+                    <tr class="border-b dark:border-gray-700">
+                        <td class="px-4 py-3">{{ $i + 1 }}</td>
+                        <td class="px-4 py-3">{{ $category->vendor->name }}</td>
+                        <td class="px-4 py-3">{{ $category->name }}</td>
+                        <td class="px-4 py-3 text-end space-x-4">
+                            <button type="button" class="text-blue-600 hover:underline cursor-pointer"
+                                onclick="editCategory(event,{{ $category->id }})">Edit</button>
+                            <button type="button" class="text-red-600 hover:underline cursor-pointer"
+                                onclick="deleteCategory(event,{{ $category->id }})">Delete</button>
+                        </td>
+                    </tr>
+                @endforeach
             </x-table>
-
-
         </div>
 
     </div>
 
     @push('scripts')
         <script>
-            let toggleAdd = document.getElementById('toggleAdd');
-            let modalAddUser = document.getElementById('modal-add-sub');
+            const modalAdd = document.getElementById('modal-add-category');
+            const modalEdit = document.getElementById('modal-edit-category');
+            const modalEditContent = document.getElementById('modal-edit-content');
 
-            toggleAdd.addEventListener('click', function() {
-                modalAddUser.classList.remove('hidden');
-            })
+            // Tampilkan modal add
+            document.getElementById('toggleAdd').addEventListener('click', () => {
+                modalAdd.classList.remove('hidden');
+            });
 
-            function editCategory(id) {
-                document.getElementById('modal-edit-sub').classList.remove('hidden');
+            function closeModal(modal) {
+                modal.classList.add('hidden');
             }
+
+            function editCategory(event, id) {
+                event.preventDefault();
+
+                fetch(`/menu/category/${id}/edit`, {
+                        method: 'GET',
+                        headers: {
+                            'Accept': 'text/html',
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    })
+                    .then(res => {
+                        if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
+                        return res.text();
+                    })
+                    .then(html => {
+                        modalEditContent.innerHTML = html;
+                        modalEdit.classList.remove('hidden');
+
+                        // Pasang listener submit setelah HTML dimasukkan
+                        const form = modalEditContent.querySelector('#formEditCategory');
+                        if (!form) return;
+                        
+                        console.log('Form found:', form);
+                        form.addEventListener('submit', function(e) {
+                            e.preventDefault();
+
+                            // Hapus pesan error lama
+                            form.querySelectorAll('.error-text').forEach(el => el.textContent = '');
+
+                            const formData = new FormData(form);
+                            formData.append('_method', 'PUT'); // Laravel PUT
+
+                            fetch(form.action, {
+                                    method: 'POST', // tetap POST tapi _method=PUT
+                                    body: formData,
+                                    headers: {
+                                        'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
+                                        'Accept': 'application/json',
+                                        'X-Requested-With': 'XMLHttpRequest'
+                                    }
+                                })
+                                .then(async res => {
+                                    const data = await res.json();
+                                    if (!res.ok) {
+                                        // tampilkan error validasi
+                                        if (data.errors) {
+                                            for (let key in data.errors) {
+                                                const errorSpan = form.querySelector(`#error-${key}`);
+                                                if (errorSpan) errorSpan.textContent = data.errors[key][0];
+                                            }
+                                        }
+                                        return;
+                                    }
+
+                                    // sukses
+                                    alert('Category berhasil diperbarui!');
+                                    window.location.href = "{{ route('category') }}";
+                                })
+                                .catch(err => console.error('Update error:', err));
+                        });
+                    })
+                    .catch(err => console.error('Error:', err));
+            }
+
+            function deleteCategory(event, id) {
+                event.preventDefault();
+
+                if (confirm('Are you sure you want to delete this category?')) {
+                    fetch(`/menu/category/${id}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                'Accept': 'application/json'
+                            }
+                        })
+                        .then(res => {
+                            if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
+                            return res.json();
+                        })
+                        .then(data => {
+                            if (data.success) {
+                                alert('Category deleted successfully!');
+                                window.location.reload(); // reload page to see changes
+                            } else {
+                                alert('Failed to delete category.');
+                            }
+                        })
+                        .catch(err => console.error('Error:', err));
+                }
+            }
+
         </script>
     @endpush
 </x-app-layout>

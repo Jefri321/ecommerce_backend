@@ -108,12 +108,12 @@
                         <div class="lg:hidden lg:sidebar-expanded:block 2xl:block">
                             <ul class="pl-8 mt-1 @if(!in_array(Request::segment(1), ['menu'])){{ 'hidden' }}@endif" :class="open ? 'block!' : 'hidden'">
                                 <li class="mb-1 last:mb-0">
-                                    <a class="block text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition truncate @if(Route::is('category')){{ 'text-violet-500!' }}@endif" href="{{ route('category') }}">
+                                    <a class="block text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition truncate @if(Route::is('vendors')){{ 'text-violet-500!' }}@endif" href="{{ route('vendors') }}">
                                         <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Vendor</span>
                                     </a>
                                 </li>
                                 <li class="mb-1 last:mb-0">
-                                    <a class="block text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition truncate @if(Route::is('sub-category')){{ 'text-violet-500!' }}@endif" href="{{ route('sub-category') }}">
+                                    <a class="block text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition truncate @if(Route::is('category')){{ 'text-violet-500!' }}@endif" href="{{ route('category') }}">
                                         <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Category</span>
                                     </a>
                                 </li>
@@ -151,7 +151,7 @@
                                 </li>
                                
                                 <li class="mb-1 last:mb-0">
-                                    <a class="block text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition truncate @if(Route::is('role')){{ 'text-violet-500!' }}@endif" href="{{ route('role') }}">
+                                    <a class="block text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition truncate @if(Route::is('roles')){{ 'text-violet-500!' }}@endif" href="{{ route('roles') }}">
                                         <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Role</span>
                                     </a>
                                 </li>
@@ -161,7 +161,7 @@
                                     </a>
                                 </li>
                                 <li class="mb-1 last:mb-0">
-                                    <a class="block text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition truncate @if(Route::is('give-permission')){{ 'text-violet-500!' }}@endif" href="{{ route('give-permission') }}">
+                                    <a class="block text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition truncate @if(Route::is('assign-role')){{ 'text-violet-500!' }}@endif" href="{{ route('assign-role') }}">
                                         <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Assign Role</span>
                                     </a>
                                 </li>

@@ -10,19 +10,19 @@
 
         <!-- Modal body -->
         <div class="p-4 md:p-5 space-y-4 w-full">
-           <form>
+           <form id="formEditUser" action="{{ route('users.update', $users->id) }}" method="POST" class="space-y-4">
                 <div class="mb-4">
                     <label for="name" class="block text-sm font-medium text-gray-700">Nama</label>
-                    <input type="text" id="update-name" name="name" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"  placeholder="Masukkan nama Anda">
+                    <input type="text" id="update-name" name="name" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500" placeholder="Masukkan nama Anda" value="{{ $users->name }}" />
                 </div>
                 <div class="mb-4">
                     <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                    <input type="email" id="update-email" name="email" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500" placeholder="Masukkan email Anda">
+                    <input type="email" id="update-email" name="email" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500" placeholder="Masukkan email Anda"  value="{{ $users->email }}" />
                 </div>
 
                 <!-- Modal footer -->
                 <div class="flex items-center border-t border-gray-200 rounded-b dark:border-gray-600">
-                    <button data-modal-hide="default-modal" type="button" class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">Submit</button>
+                    <button type="submit" class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">Submit</button>
                    <!-- Tombol back -->
                     <a href="{{ route('users') }}" 
                     class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none 
