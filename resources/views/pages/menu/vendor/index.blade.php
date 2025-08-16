@@ -1,9 +1,4 @@
 <x-app-layout>
-
-
-
-
-
     <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
 
         <!-- Dashboard actions -->
@@ -21,8 +16,7 @@
             </div>
 
             <!-- Edit Vendor Modal -->
-            <div id="modal-edit-category"
-                class="hidden fixed inset-0 z-50 flex justify-center items-center bg-black/50">
+            <div id="modal-edit-category" class="hidden fixed inset-0 z-50 flex justify-center items-center bg-black/50">
                 <div id="modal-edit-content" class="w-full max-w-2xl"></div>
             </div>
         </div>
