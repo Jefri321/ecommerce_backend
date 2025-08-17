@@ -7,12 +7,12 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\MemberController;
-use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\V1\CategoriesController;
 use App\Http\Controllers\V1\PermissionController;
 use App\Http\Controllers\V1\RoleController;
+use App\Http\Controllers\V1\TrainingController;
 use App\Http\Controllers\V1\UserController;
 use App\Http\Controllers\V1\VendorController;
 
@@ -203,9 +203,11 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         return view('pages/utility/404');
     });
 
-    Route::get('event', function () {
-        return view('pages.event.event');
-    })->name('event');
+    Route::get('/training',[TrainingController::class, 'index'])->name('training');
+    Route::post('/training', [TrainingController::class, 'store'])->name('training.store');
+    Route::get('/training/{id}/edit', [TrainingController::class, 'show'])->name('training.edit');
+    Route::put('/training/{id}', [TrainingController::class, 'update'])->name('training.update');
+    Route::delete('/training/{id}',[TrainingController::class, 'destroy'])->name('training.delete');
 
     Route::get('menagement-sales', function () {
         return view('pages.sales.sales');

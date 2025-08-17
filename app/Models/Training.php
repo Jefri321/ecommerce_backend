@@ -23,6 +23,7 @@ class Training extends Model
         'address',
         'map_url',
         'image',
+        'status'
     ];
 
     // Relasi ke Vendor
@@ -30,10 +31,14 @@ class Training extends Model
     {
         return $this->belongsTo(Vendor::class);
     }
-    
+
     // Relasi ke Category
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
+
+    protected $casts = [
+        'status' => 'integer',
+    ];
 }
