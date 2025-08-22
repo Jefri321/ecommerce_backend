@@ -1,20 +1,21 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DataFeedController;
+// use App\Http\Controllers\DataFeedController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\InvoiceController;
-use App\Http\Controllers\MemberController;
+// use App\Http\Controllers\MemberController;
 use App\Http\Controllers\JobController;
-use App\Http\Controllers\CampaignController;
+// use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\V1\CategoriesController;
 use App\Http\Controllers\V1\PermissionController;
 use App\Http\Controllers\V1\RoleController;
 use App\Http\Controllers\V1\TrainingController;
 use App\Http\Controllers\V1\UserController;
 use App\Http\Controllers\V1\VendorController;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,9 +39,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/dashboard/analytics', [DashboardController::class, 'analytics'])->name('analytics');
 
     Route::get('/dashboard/fintech', [DashboardController::class, 'fintech'])->name('fintech');
-    Route::get('/ecommerce/customers', [CustomerController::class, 'index'])->name('customers');
-    Route::get('/ecommerce/orders', [OrderController::class, 'index'])->name('orders');
-    Route::get('/ecommerce/invoices', [InvoiceController::class, 'index'])->name('invoices');
+
     Route::get('/ecommerce/shop', function () {
         return view('pages/ecommerce/shop');
     })->name('shop');
@@ -62,9 +61,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/ecommerce/pay', function () {
         return view('pages/ecommerce/pay');
     })->name('pay');
-    Route::get('/campaigns', [CampaignController::class, 'index'])->name('campaigns');
-    Route::get('/community/users-tabs', [MemberController::class, 'indexTabs'])->name('users-tabs');
-    Route::get('/community/users-tiles', [MemberController::class, 'indexTiles'])->name('users-tiles');
+
     Route::get('/community/profile', function () {
         return view('pages/community/profile');
     })->name('profile');
@@ -88,7 +85,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     })->name('credit-cards');
     // Route::get('/finance/transactions', [TransactionController::class, 'index01'])->name('transactions');
     // Route::get('/finance/transaction-details', [TransactionController::class, 'index02'])->name('transaction-details');
-    Route::get('/job/job-listing', [JobController::class, 'index'])->name('job-listing');
+
     Route::get('/job/job-post', function () {
         return view('pages/job/job-post');
     })->name('job-post');
@@ -203,11 +200,11 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         return view('pages/utility/404');
     });
 
-    Route::get('/training',[TrainingController::class, 'index'])->name('training');
+    Route::get('/training', [TrainingController::class, 'index'])->name('training');
     Route::post('/training', [TrainingController::class, 'store'])->name('training.store');
     Route::get('/training/{id}/edit', [TrainingController::class, 'show'])->name('training.edit');
     Route::put('/training/{id}', [TrainingController::class, 'update'])->name('training.update');
-    Route::delete('/training/{id}',[TrainingController::class, 'destroy'])->name('training.delete');
+    Route::delete('/training/{id}', [TrainingController::class, 'destroy'])->name('training.delete');
 
     Route::get('menagement-sales', function () {
         return view('pages.sales.sales');
@@ -230,7 +227,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::put('/role/{id}', [RoleController::class, 'update'])->name('roles.update');
         Route::delete('/role/{id}', [RoleController::class, 'destroy'])->name('roles.destroy');
 
-        Route::get('/permission',[PermissionController::class, 'index'])->name('permission');
+        Route::get('/permission', [PermissionController::class, 'index'])->name('permission');
         Route::get('/permission/{id}/edit', [PermissionController::class, 'show'])->name('permission.show');
         Route::post('/permission', [PermissionController::class, 'store'])->name('permission.store');
         Route::put('/permission/{id}', [PermissionController::class, 'update'])->name('permission.update');

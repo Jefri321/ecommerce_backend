@@ -55,8 +55,11 @@ class TrainingController extends Controller
         ]);
 
         $this->trainingService->create($validated);
-
-        return redirect()->route('training')->with('success', 'Training created successfully.');
+       
+        return response()->json([
+            'status' =>true,
+            'data' => []
+        ]);
     }
 
     // Form edit

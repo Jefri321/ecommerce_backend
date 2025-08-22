@@ -231,13 +231,13 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
-                            alert('User deleted successfully');
+                            alert('Training deleted successfully');
                             location.reload();
                         } else {
-                            alert('Error deleting user');
+                            alert('Error deleting Training');
                         }
                     })
-                    .catch(error => console.error('Error deleting user:', error));
+                    .catch(error => console.error('Error deleting Training:', error));
             }
         </script>
     @endpush

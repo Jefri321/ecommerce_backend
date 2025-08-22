@@ -173,16 +173,21 @@
 
                     </div>
 
-                    <select name="status" id="status"
-                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
-                        <option value="">-- Pilih Status --</option>
-                        <option value="0" {{ isset($trainings) && $trainings->status == '0' ? 'selected' : '' }}>
-                            Tidak Aktif
-                        </option>
-                        <option value="1" {{ isset($trainings) && $trainings->status == '1' ? 'selected' : '' }}>
-                            Aktif
-                        </option>
-                    </select>
+                    <div>
+                        <label for="status" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                        <select name="status" id="status"
+                            class="block w-full border-gray-300 rounded-md shadow-sm">
+                            <option value="">-- Pilih Status --</option>
+                            <option value="0"
+                                {{ isset($trainings) && $trainings->status == '0' ? 'selected' : '' }}>
+                                Tidak Aktif
+                            </option>
+                            <option value="1"
+                                {{ isset($trainings) && $trainings->status == '1' ? 'selected' : '' }}>
+                                Aktif
+                            </option>
+                        </select>
+                    </div>
 
                     <!-- Submit Button -->
                     <div class="text-right space-x-4">

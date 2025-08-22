@@ -26,6 +26,7 @@ return new class extends Migration
             $table->text('address')->nullable();    // Alamat lengkap
             $table->string('map_url')->nullable();  // URL Google Maps
             $table->string('image')->nullable();    // Path/Gambar pelatihan
+            $table->string('status')->default('0');
             $table->timestamps();
         });
     }

@@ -15,9 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('full_name'); // Nama lengkap sesuai KTP
             $table->string('email')->unique(); // Email aktif
-            $table->string('phone', 20); // Nomor telepon / WhatsApp
+            $table->string('password');
+            $table->string('phone', 20)->nullable(); // Nomor telepon / WhatsApp
             $table->enum('gender', ['Laki-laki', 'Perempuan'])->nullable(); // Jenis kelamin
-            $table->text('certificate_address'); // Alamat pengiriman sertifikat
+            $table->text('address')->nullable();
+            $table->text('certificate_address')->nullable(); // Alamat pengiriman sertifikat
+            $table->string('profile_photo')->nullable();
             $table->string('company')->nullable(); // Nama perusahaan (opsional)
             $table->timestamps();
         });
