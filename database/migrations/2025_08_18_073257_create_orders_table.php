@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             // Relasi ke pelatihan
             $table->id();
+            $table->string('order_number')->unique();
             $table->foreignId('customer_id')->nullable()->constrained()->onDelete('set null');
 
             $table->foreignId('training_id')->constrained()->onDelete('cascade');
@@ -26,7 +27,6 @@ return new class extends Migration
             $table->text('certificate_address');
             $table->string('company')->nullable();
             $table->enum('gender', ['Laki-laki', 'Perempuan'])->nullable();
-
 
             $table->uuid('uuid')->unique()->nullable();
 

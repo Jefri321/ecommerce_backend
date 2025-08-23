@@ -19,7 +19,11 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    // Default
+    // 'allowed_origins' => ['*'],
+
+
+     'allowed_origins' => ['http://127.0.0.1:8090'], // ganti dengan origin front-end mu
 
     'allowed_origins_patterns' => [],
 
@@ -29,6 +33,9 @@ return [
 
     'max_age' => 0,
 
-    'supports_credentials' => false,
+    // DEFAULT
+    // 'supports_credentials' => false,
+    'supports_credentials' => true,
+
 
 ];

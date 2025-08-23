@@ -21,7 +21,7 @@ class Order extends Model
         'certificate_address',
         'company',
         'gender',
-        'uuid'
+        'uuid',
     ];
 
     // Generate UUID otomatis saat creating
@@ -31,6 +31,12 @@ class Order extends Model
             if (empty($order->uuid)) {
                 $order->uuid = (string) Str::uuid();
             }
+
+            do {
+                $orderNumber = 'ORD-' . now()->format('dmy') . strtoupper(Str::random(5));
+            } while (self::where('order_number', $orderNumber)->exists());
+
+            $order->order_number = $orderNumber;
         });
     }
 
